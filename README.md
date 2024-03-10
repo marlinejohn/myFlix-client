@@ -7,4 +7,6 @@
     parcel src/index.html
 4.  Create components
     main-view, movie-view & movie-card
+5.  add hooks
+    useState, useEffect
  
