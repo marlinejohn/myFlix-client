@@ -7,6 +7,10 @@
     parcel src/index.html
 4.  Create components
     main-view, movie-view & movie-card
-5.  add hooks
+5.  Add hooks
     useState, useEffect
+6.  Create components
+    login-view, signup-view
+7.  Install bootstrap and react-bootstrap
+    npm install react-bootstrap bootstrap  
  
