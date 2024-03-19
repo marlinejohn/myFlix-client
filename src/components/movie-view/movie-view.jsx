@@ -32,7 +32,7 @@ export const MovieView = ({ movies }) => {
         <span>{movie.featured ? "True" : "False"}</span>
       </div>
       <Link to={`/`}>
-        <button className="back-button">Back</button>
+        <button className="back-button" >Back</button>
       </Link>
     </div>
   );
