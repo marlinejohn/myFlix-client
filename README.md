@@ -13,4 +13,6 @@
     login-view, signup-view
 7.  Install bootstrap and react-bootstrap
     npm install react-bootstrap bootstrap  
+8.  Install react-router and react-router-dom
+    npm install react-router react-router-dom --save
  
