@@ -69,8 +69,8 @@ export const ProfileView = ({localUser, movies, token}) => {
           }
       }
 
-      const handleDeleteAccount = (id) => {
-        fetch (`https://mj-movies-flix-036de76605bb.herokuapp.com/users/${id}`, {
+      const handleDeleteAccount = () => {
+        fetch (`https://mj-movies-flix-036de76605bb.herokuapp.com/users/${storedUser.username}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
@@ -137,16 +137,11 @@ export const ProfileView = ({localUser, movies, token}) => {
            formData={formData}
            handleUpdate={handleUpdate}
            handleSubmit={handleSubmit}
+           handleDeleteAccount={handleDeleteAccount}
            />
            </Card.Body>
            </Card>      
     </Row>
-    <Button onClick={() => handleDeleteAccount(storedUser._id)} 
-        className="button-delete mb-5" 
-        type="submit" variant="outline-secondary"
-        >
-        Delete account
-        </Button>
     <Row>
         <Col className="mb-5" xs={12} md={12}>
             {
