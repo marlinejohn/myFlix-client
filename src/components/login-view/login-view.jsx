@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+
 export const LoginView = ({onLoggedIn}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword]= useState("");
@@ -56,6 +57,7 @@ export const LoginView = ({onLoggedIn}) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="mb-3"
             required
           />
         </Form.Group>
