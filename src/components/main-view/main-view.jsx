@@ -7,13 +7,14 @@ import  Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(storedUser? storedUser : null);
-  const [token, setToken] = useState(storedToken? storedToken : null);
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
 
   useEffect(() => {
     if (!token) {
@@ -21,38 +22,40 @@ export const MainView = () => {
     }
 
     fetch("https://mj-movies-flix-036de76605bb.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Movies data: ", data);
-      const moviesFromApi = data.map((data) => {
-        return {
-          id: data._id,
-          title: data.title,
-          image: data.imageUrl,
-          description: data.description,
-          genre: data.genre.name,
-          director: data.director.name,
-          featured: data.featured
-        };
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Movies data: ", data);
+        const moviesFromApi = data.map((data) => {
+          return {
+            id: data._id,
+            title: data.title,
+            image: data.imageUrl,
+            description: data.description,
+            genre: data.genre.name,
+            director: data.director.name,
+            featured: data.featured,
+          };
+        });
+
+        setMovies(moviesFromApi);
       });
+  }, [token]);
 
-      setMovies(moviesFromApi);
-    });
-}, [token]);
-
-return (
-  <BrowserRouter>
-  <NavigationBar  user={user}
+  return (
+    <BrowserRouter>
+      <NavigationBar
+        user={user}
         onLoggedOut={() => {
           setUser(null);
-          setToken(null)
-          localStorage.clear()
-        }}/>
-  <Row className="justify-content-md-center"> 
-  <Routes>
-  <Route
+          setToken(null);
+          localStorage.clear();
+        }}
+      />
+      <Row className="justify-content-md-center">
+        <Routes>
+          <Route
             path="/signup"
             element={
               <>
@@ -64,7 +67,6 @@ return (
                   </Col>
                 )}
               </>
-
             }
           />
           <Route
@@ -79,7 +81,6 @@ return (
                   </Col>
                 )}
               </>
-
             }
           />
           <Route
@@ -109,8 +110,11 @@ return (
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard movie={movie} />
+                      <Col className="mb-4" key={movie.id} md={3} sm={12}>
+                        <MovieCard 
+                        movie={movie} 
+                        isFavorite={user.favoriteMovies.includes(movie.title)}
+                        />
                       </Col>
                     ))}
                   </>
@@ -118,8 +122,26 @@ return (
               </>
             }
           />
-    </Routes>
-  </Row>
-  </BrowserRouter>
-);
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col md={8}>
+                    <ProfileView
+                      localUser={user}
+                      movies={movies}
+                      token={token}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </Row>
+    </BrowserRouter>
+  );
 }
