@@ -1,10 +1,15 @@
-import Button from "react-bootstrap/Button";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies }) => {
+  const { movieId } = useParams();
+
+  const movie = movies.find((m) => m.id === movieId);
+
   return (
     <div>
       <div>
-        <img src={movie.image} style={{ height: 'auto' }} className="w-100" alt="Movie Poster" />
+        <img src={movie.image} className="img-fluid  justify-content-md-center" alt="Movie Poster" />
       </div>
       <div>
         <span style={{fontWeight: 'bold' }}>Title: </span>
@@ -26,9 +31,9 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Featured: </span>
         <span>{movie.featured ? "True" : "False"}</span>
       </div>
-      <Button variant="primary" onClick={onBackClick}>
-          Back
-        </Button>
+      <Link to={`/`}>
+        <button className="back-button" >Back</button>
+      </Link>
     </div>
   );
   };
