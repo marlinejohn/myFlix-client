@@ -15,4 +15,6 @@
     npm install react-bootstrap bootstrap  
 8.  Install react-router and react-router-dom
     npm install react-router react-router-dom --save
+9.  Install parcel as a lcal developer
+    npm install --save-dev parcel@2.12.0
  
