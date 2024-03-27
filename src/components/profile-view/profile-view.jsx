@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { UserInfo } from './user-info'
+import PropTypes from "prop-types"
 import { Button, Card, Container} from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { UserInfo } from './user-info'
 import { FavouriteMovies } from './favourite-movies';
 import { UpdateUser } from "./update-user";
 
@@ -152,4 +153,10 @@ export const ProfileView = ({localUser, movies, token}) => {
       </Container>
   )
 }
+
+ProfileView.propTypes = {
+  localUser: PropTypes.object.isRequired,
+  movies: PropTypes.array.isRequired,
+  token: PropTypes.string.isRequired
+};
 

@@ -15,6 +15,7 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -40,13 +41,34 @@ export const MainView = () => {
         });
 
         setMovies(moviesFromApi);
+        localStorage.setItem("movies", JSON.stringify(movies));
       });
   }, [token]);
+  
+  const handleSearch =(e) => {
+    
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    //Filter movies by title, genre or director
+    const filteredMovies = movies.filter((movie) => {
+      return (
+        movie.title.toLowerCase().includes(query.toLowerCase())
+        ||
+        movie.genre.toLowerCase().includes(query.toLowerCase())
+        ||
+        movie.director.toLowerCase().includes(query.toLowerCase())
+      );
+    })
+  setMovies(filteredMovies);
+}
 
   return (
     <BrowserRouter>
       <NavigationBar
         user={user}
+        query={searchQuery}
+        handleSearch={handleSearch}
         onLoggedOut={() => {
           setUser(null);
           setToken(null);
