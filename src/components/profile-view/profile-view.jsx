@@ -109,10 +109,9 @@ export const ProfileView = ({localUser, movies, token}) => {
             };
           });
           setUser(usersFromApi.find((u) => u.username === localUser.username));
-        //   localStorage.setItem('user', JSON.stringify(user));
+        
           console.log("Profile Saved User: " + JSON.stringify(user));
-        //   console.log("User Result Data: " + storedUser.username );
-        //   storedUser = user;
+       
         })
         .catch((error) => {
             console.error(error);
@@ -120,7 +119,7 @@ export const ProfileView = ({localUser, movies, token}) => {
     }, [token]);
 
   return (
-    <Container className="mx-1">
+    <Container >
     <Row>
         <Card className="mb-5">
             <Card.Body>
