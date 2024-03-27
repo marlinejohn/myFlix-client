@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -67,4 +68,8 @@ export const LoginView = ({onLoggedIn}) => {
         </Button>
       </Form>
     );
+  };
+
+  LoginView.propTypes = {
+    onLoggedIn: PropTypes.func.isRequired,
   };
